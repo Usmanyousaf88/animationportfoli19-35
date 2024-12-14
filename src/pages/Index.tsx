@@ -1,14 +1,12 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import ProductGrid from "@/components/ProductGrid";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FEF7F5]">
       <Navbar />
       <Hero />
-      <ProductGrid />
     </div>
   );
 };
