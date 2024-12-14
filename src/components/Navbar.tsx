@@ -41,7 +41,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed left-0 top-0 h-full w-[200px] p-4 space-y-2 z-50">
+    <nav className="fixed left-0 top-0 h-full w-[200px] p-4 space-y-2 z-50 md:block hidden">
       {navItems.map((item) => (
         <button
           key={item.id}
