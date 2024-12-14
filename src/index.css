@@ -29,10 +29,13 @@
 
 @layer base {
   * {
-    @apply border-[#e2e2e2];
+    @apply border-[#e2e2e2] scroll-smooth;
   }
   body {
-    @apply bg-[#FEF7F5] text-black;
+    @apply bg-[#FEF7F5] text-black overflow-hidden;
+  }
+  html {
+    scroll-behavior: smooth;
   }
 }
 
