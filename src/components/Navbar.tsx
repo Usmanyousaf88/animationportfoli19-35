@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const navItems = [
   { id: "00", label: "Raw Materials", path: "raw-materials" },
@@ -41,20 +42,30 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed left-0 top-0 h-full w-[200px] p-4 space-y-2 z-50 md:block hidden">
-      {navItems.map((item) => (
-        <button
+    <motion.nav 
+      initial={{ x: -200, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="fixed left-0 top-0 h-full w-[200px] p-4 space-y-2 z-50 md:block hidden"
+    >
+      {navItems.map((item, index) => (
+        <motion.button
           key={item.id}
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 * index }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => handleClick(item.path)}
-          className={`block w-full rounded-xl p-4 transition-transform hover:scale-105 ${getNavItemStyle(
+          className={`block w-full rounded-xl p-4 transition-transform ${getNavItemStyle(
             item.id
           )}`}
         >
           <div className="text-xs opacity-70">{item.id}</div>
           <div className="font-medium">{item.label}</div>
-        </button>
+        </motion.button>
       ))}
-    </nav>
+    </motion.nav>
   );
 };
 
