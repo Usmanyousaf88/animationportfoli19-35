@@ -11,15 +11,9 @@ const Hero = () => {
             title="San Francisco City" 
             className="w-full h-full"
             frameBorder="0" 
-            allowFullScreen 
-            mozallowfullscreen="true" 
-            webkitallowfullscreen="true" 
-            allow="autoplay; fullscreen; xr-spatial-tracking" 
-            xr-spatial-tracking 
-            execution-while-out-of-viewport 
-            execution-while-not-rendered 
-            web-share 
-            src="https://sketchfab.com/models/108841754fd3485886c1dde13301d341/embed?ui_theme=dark"
+            allowFullScreen={true}
+            allow="autoplay; fullscreen; xr-spatial-tracking"
+            src="https://sketchfab.com/models/108841754fd3485886c1dde13301d341/embed?ui_theme=dark&autostart=1&transparent=1"
           /> 
         </div>
       </div>
