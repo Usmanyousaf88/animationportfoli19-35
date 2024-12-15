@@ -12,6 +12,24 @@ const Sections = () => {
   useEffect(() => {
     const sections = document.querySelectorAll('section');
     
+    sections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top center",
+        onEnter: () => {
+          const backgroundColor = window.getComputedStyle(section).backgroundColor;
+          document.documentElement.style.setProperty('--scrollbar-color', backgroundColor);
+        },
+        onLeaveBack: () => {
+          const prevSection = section.previousElementSibling;
+          if (prevSection) {
+            const backgroundColor = window.getComputedStyle(prevSection).backgroundColor;
+            document.documentElement.style.setProperty('--scrollbar-color', backgroundColor);
+          }
+        }
+      });
+    });
+
     sections.forEach((section, index) => {
       if (index < sections.length - 1) {
         ScrollTrigger.create({
