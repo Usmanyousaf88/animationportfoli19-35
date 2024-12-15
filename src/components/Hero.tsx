@@ -3,29 +3,50 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <div className="min-h-screen pl-[200px] flex flex-col">
+    <div className="min-h-screen pl-[200px] flex flex-col relative">
+      {/* 3D Model Background */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <div className="sketchfab-embed-wrapper h-full"> 
+          <iframe 
+            title="San Francisco City" 
+            className="w-full h-full"
+            frameBorder="0" 
+            allowFullScreen 
+            mozallowfullscreen="true" 
+            webkitallowfullscreen="true" 
+            allow="autoplay; fullscreen; xr-spatial-tracking" 
+            xr-spatial-tracking 
+            execution-while-out-of-viewport 
+            execution-while-not-rendered 
+            web-share 
+            src="https://sketchfab.com/models/108841754fd3485886c1dde13301d341/embed?ui_theme=dark"
+          /> 
+        </div>
+      </div>
+
+      {/* Content Overlay */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="flex justify-between p-8"
+        className="flex justify-between p-8 relative z-10"
       >
-        <div className="text-2xl font-medium">Raw Materials</div>
-        <div className="text-2xl font-medium">An Unusual Design Company</div>
+        <div className="text-2xl font-medium text-white">Raw Materials</div>
+        <div className="text-2xl font-medium text-white">An Unusual Design Company</div>
       </motion.div>
       
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="flex-1 flex items-center justify-center p-8"
+        className="flex-1 flex items-center justify-center p-8 relative z-10"
       >
         <div className="max-w-4xl">
           <motion.h1 
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-[200px] font-bold leading-none"
+            className="text-[200px] font-bold leading-none text-white"
           >
             RM
           </motion.h1>
@@ -33,7 +54,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-xl mt-8 max-w-xl"
+            className="text-xl mt-8 max-w-xl text-white"
           >
             We design and launch unusually creative digital products that change brands' fortunes.
           </motion.p>
@@ -44,7 +65,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
-        className="bg-[#6B46C1] text-white p-8"
+        className="bg-[#6B46C1] text-white p-8 relative z-10"
       >
         <div className="max-w-4xl mx-auto">
           <motion.h2 
