@@ -30,13 +30,19 @@
 
 @layer base {
   * {
-    @apply border-[#e2e2e2] scroll-smooth;
+    @apply border-[#e2e2e2] scroll-smooth font-sans;
   }
   body {
-    @apply bg-[#FEF7F5] text-black overflow-hidden;
+    @apply bg-[#FEF7F5] text-black overflow-hidden font-sans;
   }
   html {
     scroll-behavior: smooth;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-center;
+  }
+  p {
+    @apply text-center tracking-wide leading-relaxed;
   }
 }
 

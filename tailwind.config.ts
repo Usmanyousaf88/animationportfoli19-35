@@ -23,7 +23,7 @@ export default {
         rawLight: "#F5F5F5",
       },
       fontFamily: {
-        sans: ["Helvetica Neue", "Arial", "sans-serif"],
+        sans: ["Montserrat", "Helvetica Neue", "Arial", "sans-serif"],
       },
       keyframes: {
         fadeIn: {

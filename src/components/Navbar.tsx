@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
 
 const navItems = [
   { id: "00", label: "Raw Materials", path: "raw-materials" },
@@ -61,8 +60,8 @@ const Navbar = () => {
                 item.id
               )}`}
             >
-              <div className="text-[10px] opacity-70">{item.id}</div>
-              <div className="text-[11px] font-medium leading-tight text-center">{item.label}</div>
+              <div className="text-[10px] opacity-70 font-bold tracking-wider">{item.id}</div>
+              <div className="text-[11px] font-bold leading-tight text-center tracking-wide">{item.label}</div>
             </motion.button>
           ))}
         </div>
@@ -88,8 +87,8 @@ const Navbar = () => {
               item.id
             )}`}
           >
-            <div className="text-xs opacity-70">{item.id}</div>
-            <div className="font-medium">{item.label}</div>
+            <div className="text-xs opacity-70 font-bold tracking-wider text-center">{item.id}</div>
+            <div className="font-bold tracking-wide text-center">{item.label}</div>
           </motion.button>
         ))}
       </motion.nav>
