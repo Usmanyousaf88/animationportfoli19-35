@@ -35,13 +35,10 @@ const getNavItemStyle = (id: string) => {
 };
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const handleClick = (path: string) => {
     const element = document.getElementById(path);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
     }
   };
 
@@ -51,21 +48,21 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-sm z-50 md:hidden overflow-x-auto"
+        className="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-sm z-50 md:hidden"
       >
-        <div className="flex items-center gap-2 p-2 whitespace-nowrap">
+        <div className="grid grid-cols-4 gap-1 p-2">
           {navItems.map((item) => (
             <motion.button
               key={item.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleClick(item.path)}
-              className={`rounded-xl p-2 transition-transform flex-shrink-0 ${getNavItemStyle(
+              className={`rounded-xl p-2 flex flex-col items-center justify-center ${getNavItemStyle(
                 item.id
               )}`}
             >
-              <div className="text-xs opacity-70">{item.id}</div>
-              <div className="text-sm font-medium">{item.label}</div>
+              <div className="text-[10px] opacity-70">{item.id}</div>
+              <div className="text-[11px] font-medium leading-tight text-center">{item.label}</div>
             </motion.button>
           ))}
         </div>
