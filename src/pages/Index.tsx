@@ -14,8 +14,8 @@ const Index = () => {
       transition={{ duration: 0.8 }}
       className="min-h-screen bg-[#FEF7F5]"
     >
-      {!isMobile && <Navbar />}
-      <div className={`${!isMobile ? "pl-[200px]" : ""}`}>
+      <Navbar />
+      <div className={`${!isMobile ? "pl-[200px]" : "pt-[100px]"}`}>
         <Sections />
       </div>
     </motion.div>

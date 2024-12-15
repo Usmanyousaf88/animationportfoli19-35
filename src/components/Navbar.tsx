@@ -47,47 +47,29 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      <motion.button
-        initial={false}
-        animate={{ rotate: isOpen ? 90 : 0 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-50 p-2 bg-white rounded-full shadow-lg md:hidden"
+      {/* Mobile Navigation */}
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-sm z-50 md:hidden overflow-x-auto"
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
-      </motion.button>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 20 }}
-            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-sm md:hidden"
-          >
-            <div className="flex flex-col items-center justify-center h-full space-y-4 p-4">
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.3 }}
-                  onClick={() => handleClick(item.path)}
-                  className={`w-full max-w-sm rounded-xl p-4 transition-transform ${getNavItemStyle(
-                    item.id
-                  )}`}
-                >
-                  <div className="text-xs opacity-70">{item.id}</div>
-                  <div className="font-medium">{item.label}</div>
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <div className="flex items-center gap-2 p-2 whitespace-nowrap">
+          {navItems.map((item) => (
+            <motion.button
+              key={item.id}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleClick(item.path)}
+              className={`rounded-xl p-2 transition-transform flex-shrink-0 ${getNavItemStyle(
+                item.id
+              )}`}
+            >
+              <div className="text-xs opacity-70">{item.id}</div>
+              <div className="text-sm font-medium">{item.label}</div>
+            </motion.button>
+          ))}
+        </div>
+      </motion.nav>
 
       {/* Desktop Navigation */}
       <motion.nav 
