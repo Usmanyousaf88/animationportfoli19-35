@@ -14,8 +14,6 @@ const Sections = () => {
     
     sections.forEach((section, index) => {
       if (index < sections.length - 1) {
-        const nextSection = sections[index + 1];
-        
         ScrollTrigger.create({
           trigger: section,
           start: "bottom bottom",

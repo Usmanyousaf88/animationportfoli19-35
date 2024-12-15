@@ -18,13 +18,15 @@ const MarqueeImages = ({ images, direction = "left" }: MarqueeImagesProps) => {
     const wrapper = wrapperRef.current;
     const [x, xEnd] = direction === "left" 
       ? [wrapper.scrollWidth * -1, 0] 
-      : ['100%', (wrapper.scrollWidth - wrapper.offsetWidth) * -1];
+      : [0, (wrapper.scrollWidth - wrapper.offsetWidth) * -1];
 
     gsap.fromTo(wrapper, { x }, {
       x: xEnd,
       scrollTrigger: {
         trigger: wrapper,
         scrub: 0.5,
+        start: "top bottom",
+        end: "bottom top",
       }
     });
   }, [direction]);
