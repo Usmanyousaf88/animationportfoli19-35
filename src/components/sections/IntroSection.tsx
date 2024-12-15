@@ -2,6 +2,18 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const IntroSection = () => {
+  const letterVariants = {
+    animate: {
+      rotateX: [0, 360],
+      rotateY: [0, 360],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "linear"
+      }
+    }
+  };
+
   return (
     <motion.section
       initial="hidden"
@@ -21,22 +33,37 @@ const IntroSection = () => {
       </div>
       
       <div className="flex-1 flex items-center justify-center p-4 md:p-8">
-        <div className="max-w-4xl">
+        <div className="max-w-4xl perspective-[1000px]">
           <motion.h1 
             initial={{ scale: 0.8, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-[100px] md:text-[200px] font-bold leading-none"
+            className="text-[100px] md:text-[200px] font-bold leading-none flex justify-center items-center gap-4"
           >
-            AS
+            <motion.span
+              variants={letterVariants}
+              animate="animate"
+              className="inline-block transform-style-3d"
+              style={{ transformStyle: 'preserve-3d', display: 'inline-block' }}
+            >
+              A
+            </motion.span>
+            <motion.span
+              variants={letterVariants}
+              animate="animate"
+              className="inline-block transform-style-3d"
+              style={{ transformStyle: 'preserve-3d', display: 'inline-block' }}
+            >
+              S
+            </motion.span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg md:text-xl mt-4 md:mt-8 max-w-2xl"
+            className="text-lg md:text-xl mt-4 md:mt-8 max-w-2xl mx-auto"
           >
             Results-driven graphic designer and lead marketing strategist based in the San Francisco Bay Area, dedicated to helping small local businesses establish a compelling, cohesive presence across digital and traditional platforms.
           </motion.p>
