@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -7,8 +11,48 @@ const sectionVariants = {
 };
 
 const Sections = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('section');
+    
+    sections.forEach((section, index) => {
+      if (index < sections.length - 1) {
+        const nextSection = sections[index + 1];
+        
+        ScrollTrigger.create({
+          trigger: section,
+          start: "bottom bottom",
+          onEnter: () => {
+            gsap.to(section, {
+              duration: 0.5,
+              filter: "url(#pixelate)",
+              ease: "power2.inOut",
+              onComplete: () => {
+                gsap.set(section, { filter: "none" });
+              }
+            });
+          }
+        });
+      }
+    });
+  }, []);
+
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory">
+    <>
+      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        <defs>
+          <filter id="pixelate">
+            <feFlood x="4" y="4" height="2" width="2"/>
+            <feComposite width="10" height="10"/>
+            <feTile result="a"/>
+            <feComposite in="SourceGraphic" in2="a" operator="in"/>
+            <feMorphology operator="dilate" radius="5"/>
+          </filter>
+        </defs>
+      </svg>
+      
+      <div ref={containerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -152,7 +196,8 @@ const Sections = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 
