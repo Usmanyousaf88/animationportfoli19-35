@@ -5,12 +5,12 @@ import { motion } from "framer-motion";
 const navItems = [
   { id: "00", label: "Raw Materials", path: "raw-materials" },
   { id: "01", label: "Hello", path: "hello" },
-  { id: "02", label: "Approach", path: "theme" }, // Changed path to "theme" which contains hackathon info
+  { id: "02", label: "Approach", path: "theme" },
   { id: "03", label: "Work", path: "work" },
-  { id: "04", label: "Talent", path: "talent" },
-  { id: "05", label: "Careers", path: "careers" },
-  { id: "06", label: "Register Now", path: "contact" },
-  { id: "07", label: "FAQ", path: "unusual-index" },
+  { id: "04", label: "Sponsors", path: "talent" },
+  { id: "05", label: "Prizes", path: "prizes" },
+  { id: "06", label: "Register Now", path: "register" },
+  { id: "07", label: "FAQ", path: "faq" },
 ];
 
 const getNavItemStyle = (id: string) => {

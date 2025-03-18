@@ -1,11 +1,14 @@
+
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 import IntroSection from "./sections/IntroSection";
 import HelloSection from "./sections/HelloSection";
 import CareerSection from "./sections/CareerSection";
 import MarqueeImages from "./MarqueeImages";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,6 +69,35 @@ const Sections = () => {
     "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
   ];
 
+  // Animation variants for prize cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  // Animation variants for sponsor logos
+  const logoVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: (i: number) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        type: "spring",
+        stiffness: 100
+      }
+    })
+  };
+
   return (
     <>
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
@@ -99,51 +131,100 @@ const Sections = () => {
           </div>
         </section>
 
-        <section id="prizes" className="h-screen snap-start bg-black text-white flex items-center justify-center">
+        <section id="prizes" className="h-screen snap-start bg-black text-white flex items-center justify-center overflow-hidden">
           <div className="max-w-4xl p-4 md:p-8">
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 md:mb-8">$1M+ in Prizes</h2>
-            <div className="text-base md:text-xl space-y-6">
+            <motion.h2 
+              initial={{ y: -50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, type: "spring" }}
+              className="text-4xl md:text-6xl font-bold mb-4 md:mb-8"
+            >
+              $1M+ in Prizes
+            </motion.h2>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-base md:text-xl space-y-6"
+            >
               <p>
                 Compete for a prize pool of over $1 million distributed across multiple categories designed to recognize excellence in various domains of technology and innovation.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <div className="bg-white/10 p-6 rounded-lg">
-                  <h3 className="text-2xl font-bold mb-2">Grand Prize</h3>
-                  <p>$250,000 cash + Investment opportunities</p>
-                </div>
-                <div className="bg-white/10 p-6 rounded-lg">
-                  <h3 className="text-2xl font-bold mb-2">AI Innovation</h3>
-                  <p>$150,000 cash + Computing credits</p>
-                </div>
-                <div className="bg-white/10 p-6 rounded-lg">
-                  <h3 className="text-2xl font-bold mb-2">Social Impact</h3>
-                  <p>$100,000 cash + Mentorship program</p>
-                </div>
-                <div className="bg-white/10 p-6 rounded-lg">
-                  <h3 className="text-2xl font-bold mb-2">Web3/Blockchain</h3>
-                  <p>$100,000 cash + Accelerator program access</p>
-                </div>
+                {[
+                  { title: "Grand Prize", reward: "$250,000 cash + Investment opportunities" },
+                  { title: "AI Innovation", reward: "$150,000 cash + Computing credits" },
+                  { title: "Social Impact", reward: "$100,000 cash + Mentorship program" },
+                  { title: "Web3/Blockchain", reward: "$100,000 cash + Accelerator program access" }
+                ].map((prize, i) => (
+                  <motion.div
+                    key={i}
+                    custom={i}
+                    variants={cardVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    whileHover={{ 
+                      scale: 1.05, 
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
+                      background: "rgba(255, 255, 255, 0.15)"
+                    }}
+                    className="bg-white/10 p-6 rounded-lg transition-all duration-300"
+                  >
+                    <h3 className="text-2xl font-bold mb-2">{prize.title}</h3>
+                    <p>{prize.reward}</p>
+                  </motion.div>
+                ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        <section id="sponsors" className="h-screen snap-start bg-[#4169E1] text-white flex items-center justify-center">
+        <section id="talent" className="h-screen snap-start bg-[#4169E1] text-white flex items-center justify-center overflow-hidden">
           <div className="max-w-4xl p-4 md:p-8">
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 md:mb-8">Our Sponsors</h2>
-            <div className="text-base md:text-xl mb-8">
+            <motion.h2 
+              initial={{ x: -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-6xl font-bold mb-4 md:mb-8"
+            >
+              Our Sponsors
+            </motion.h2>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-base md:text-xl mb-8"
+            >
               <p>We're proud to partner with leading technology companies and innovators who make this hackathon possible.</p>
-            </div>
+            </motion.div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-8">
               {Array.from({ length: 6 }).map((_, index) => (
-                <div key={index} className="bg-white/20 aspect-video rounded-lg flex items-center justify-center">
+                <motion.div 
+                  key={index}
+                  custom={index}
+                  variants={logoVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  whileHover={{ 
+                    rotate: [0, -5, 5, -5, 0],
+                    transition: { duration: 0.5 }
+                  }}
+                  className="bg-white/20 aspect-video rounded-lg flex items-center justify-center hover:bg-white/30 transition-colors"
+                >
                   <div className="text-2xl font-bold text-white opacity-50">Sponsor Logo</div>
-                </div>
+                </motion.div>
               ))}
             </div>
-            <div className="mt-8 text-center">
+            <motion.div 
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              className="mt-8 text-center"
+            >
               <p>Interested in sponsoring? Contact us at sponsors@worldslargestchackathon.com</p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
