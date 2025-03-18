@@ -1,9 +1,9 @@
-
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import IntroSection from "./sections/IntroSection";
 import HelloSection from "./sections/HelloSection";
+import CareerSection from "./sections/CareerSection";
 import MarqueeImages from "./MarqueeImages";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
@@ -84,22 +84,6 @@ const Sections = () => {
         <IntroSection />
         <HelloSection />
         <MarqueeImages images={hackathonImages} direction="left" />
-        
-        <section id="about" className="h-screen snap-start bg-[#FF4500] text-white flex items-center justify-center">
-          <div className="max-w-4xl p-4 md:p-8">
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 md:mb-8">About the Hackathon</h2>
-            <div className="text-base md:text-xl space-y-6">
-              <p>
-                Welcome to the World's Largest Hackathon, a virtual event bringing together the brightest minds from around the globe to collaborate, innovate, and create technologies that will shape our future. With over $1 million in prizes across multiple categories, this is your chance to showcase your skills on a global stage.
-              </p>
-              <p>
-                Whether you're a seasoned developer, a creative designer, or a visionary entrepreneur, this hackathon offers a platform to turn your ideas into reality. Our virtual format allows participants from every corner of the world to connect, learn from industry experts, and compete for life-changing opportunities.
-              </p>
-            </div>
-          </div>
-        </section>
-        
-        <MarqueeImages images={sponsorImages} direction="right" />
         
         <section id="theme" className="h-screen snap-start bg-[#6B46C1] text-white flex items-center justify-center">
           <div className="max-w-4xl p-4 md:p-8">
@@ -187,6 +171,9 @@ const Sections = () => {
             </div>
           </div>
         </section>
+
+        {/* Replace the Career section with our new component */}
+        <CareerSection />
 
         <section id="register" className="h-screen snap-start bg-[#FFD700] text-black flex items-center justify-center">
           <div className="max-w-4xl p-4 md:p-8">
