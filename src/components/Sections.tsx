@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,6 +6,7 @@ import IntroSection from "./sections/IntroSection";
 import HelloSection from "./sections/HelloSection";
 import CareerSection from "./sections/CareerSection";
 import MarqueeImages from "./MarqueeImages";
+import LightningBackground from "./LightningBackground";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 
@@ -56,7 +56,6 @@ const Sections = () => {
     });
   }, []);
 
-  // Sample images for each section
   const hackathonImages = [
     "https://images.unsplash.com/photo-1542744173-8e7e53415bb0",
     "https://images.unsplash.com/photo-1531482615713-2afd69097998",
@@ -69,7 +68,6 @@ const Sections = () => {
     "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
   ];
 
-  // Animation variants for prize cards
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: (i: number) => ({
@@ -83,7 +81,6 @@ const Sections = () => {
     })
   };
 
-  // Animation variants for sponsor logos
   const logoVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: (i: number) => ({
@@ -96,6 +93,32 @@ const Sections = () => {
         stiffness: 100
       }
     })
+  };
+
+  const prizeTextVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.6,
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
+  const prizeAmountVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        type: "spring",
+        stiffness: 120
+      }
+    }
   };
 
   return (
@@ -131,26 +154,46 @@ const Sections = () => {
           </div>
         </section>
 
-        <section id="prizes" className="h-screen snap-start bg-black text-white flex items-center justify-center overflow-hidden">
-          <div className="max-w-4xl p-4 md:p-8">
-            <motion.h2 
-              initial={{ y: -50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, type: "spring" }}
-              className="text-4xl md:text-6xl font-bold mb-4 md:mb-8"
+        <section id="prizes" className="h-screen snap-start bg-black text-white flex items-center justify-center overflow-hidden relative">
+          <LightningBackground color="#FF1493" intensity={0.8} frequency={4} />
+          
+          <div className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#FF1493]/30 to-[#800080]/10 blur-[100px] animate-pulse"></div>
+          
+          <div className="max-w-4xl p-4 md:p-8 relative z-10">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
+              className="flex flex-col space-y-6"
             >
-              $1M+ in Prizes
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-base md:text-xl space-y-6"
-            >
-              <p>
-                Compete for a prize pool of over $1 million distributed across multiple categories designed to recognize excellence in various domains of technology and innovation.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <motion.h2 
+                variants={prizeTextVariants}
+                className="text-4xl md:text-7xl font-bold mb-2 md:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"
+              >
+                $1M+ in Prizes
+              </motion.h2>
+              
+              <motion.div 
+                variants={prizeTextVariants}
+                className="text-base md:text-xl space-y-6"
+              >
+                <p className="text-left">
+                  Compete for a prize pool of over $1 million distributed across multiple categories designed to recognize excellence in various domains of technology and innovation.
+                </p>
+              </motion.div>
+              
+              <motion.div 
+                variants={prizeAmountVariants}
+                className="flex items-center justify-center my-8"
+              >
+                <div className="relative w-48 h-48 bg-gradient-to-br from-[#FF1493] to-[#800080] rounded-full flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
+                  <div className="absolute inset-1 rounded-full bg-black"></div>
+                  <div className="relative text-4xl font-bold text-white">$1M+</div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF1493]/50 to-[#800080]/30 blur-md animate-pulse"></div>
+                </div>
+              </motion.div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                 {[
                   { title: "Grand Prize", reward: "$250,000 cash + Investment opportunities" },
                   { title: "AI Innovation", reward: "$150,000 cash + Computing credits" },
@@ -161,18 +204,16 @@ const Sections = () => {
                     key={i}
                     custom={i}
                     variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.3 }}
                     whileHover={{ 
                       scale: 1.05, 
-                      boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-                      background: "rgba(255, 255, 255, 0.15)"
+                      boxShadow: "0 0 25px rgba(255, 20, 147, 0.5)",
+                      background: "rgba(255, 20, 147, 0.15)"
                     }}
-                    className="bg-white/10 p-6 rounded-lg transition-all duration-300"
+                    className="bg-white/5 backdrop-blur-sm p-6 rounded-lg border border-pink-500/20 transition-all duration-300"
                   >
                     <h3 className="text-2xl font-bold mb-2">{prize.title}</h3>
                     <p>{prize.reward}</p>
+                    <div className="absolute -bottom-2 -right-2 w-16 h-16 rounded-full bg-gradient-to-br from-pink-500/30 to-purple-500/20 blur-xl"></div>
                   </motion.div>
                 ))}
               </div>
@@ -253,7 +294,6 @@ const Sections = () => {
           </div>
         </section>
 
-        {/* Replace the Career section with our new component */}
         <CareerSection />
 
         <section id="register" className="h-screen snap-start bg-[#FFD700] text-black flex items-center justify-center">
