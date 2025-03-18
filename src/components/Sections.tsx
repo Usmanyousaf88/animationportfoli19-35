@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Sections = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const sections = document.querySelectorAll('section');
@@ -25,12 +27,22 @@ const Sections = () => {
         onEnter: () => {
           const backgroundColor = window.getComputedStyle(section).backgroundColor;
           document.documentElement.style.setProperty('--scrollbar-color', backgroundColor);
+          
+          // Auto-play video when work section enters viewport
+          if (section.id === 'work' && videoRef.current) {
+            videoRef.current.play().catch(e => console.log("Video play failed:", e));
+          }
         },
         onLeaveBack: () => {
           const prevSection = section.previousElementSibling;
           if (prevSection) {
             const backgroundColor = window.getComputedStyle(prevSection).backgroundColor;
             document.documentElement.style.setProperty('--scrollbar-color', backgroundColor);
+          }
+          
+          // Pause video when leaving work section
+          if (section.id === 'work' && videoRef.current) {
+            videoRef.current.pause();
           }
         }
       });
@@ -139,6 +151,49 @@ const Sections = () => {
         <IntroSection />
         <HelloSection />
         <MarqueeImages images={hackathonImages} direction="left" />
+        
+        {/* Work Section with Video */}
+        <section id="work" className="h-screen snap-start bg-black text-white flex items-center justify-center overflow-hidden">
+          <div className="max-w-6xl w-full p-4 md:p-8 flex flex-col items-center">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-bold mb-6 text-center"
+            >
+              Built on Bolt.new
+            </motion.h2>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="w-full max-w-4xl aspect-video rounded-xl overflow-hidden shadow-[0_0_30px_rgba(255,20,147,0.5)] mt-6"
+            >
+              <video 
+                ref={videoRef}
+                className="w-full h-full object-cover" 
+                controls
+                playsInline
+                preload="metadata"
+              >
+                <source src="/bolt.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-xl mt-8 text-center max-w-3xl"
+            >
+              Watch how our platform empowers developers to build amazing applications with unprecedented speed and efficiency.
+            </motion.p>
+          </div>
+        </section>
         
         <section id="theme" className="h-screen snap-start bg-[#6B46C1] text-white flex items-center justify-center">
           <div className="max-w-4xl p-4 md:p-8">
