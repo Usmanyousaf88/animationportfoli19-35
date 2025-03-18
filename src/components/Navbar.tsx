@@ -1,10 +1,11 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 
 const navItems = [
   { id: "00", label: "Raw Materials", path: "raw-materials" },
   { id: "01", label: "Hello", path: "hello" },
-  { id: "02", label: "Approach", path: "approach" },
+  { id: "02", label: "Approach", path: "theme" }, // Changed path to "theme" which contains hackathon info
   { id: "03", label: "Work", path: "work" },
   { id: "04", label: "Talent", path: "talent" },
   { id: "05", label: "Careers", path: "careers" },
