@@ -17,7 +17,8 @@ const Index = () => {
       className="min-h-screen bg-[#FEF7F5]"
     >
       <Navbar />
-      {isMobile ? null : <Hero />}
+      {/* Show Hero on both mobile and desktop */}
+      <Hero />
       <div className={`${!isMobile ? "pl-[200px]" : "pt-[100px]"}`}>
         <Sections />
       </div>
