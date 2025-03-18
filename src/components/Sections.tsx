@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import IntroSection from "./sections/IntroSection";
+import HelloSection from "./sections/HelloSection";
 import MarqueeImages from "./MarqueeImages";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
@@ -81,6 +82,7 @@ const Sections = () => {
       
       <div ref={containerRef} className="h-screen overflow-y-scroll snap-y snap-mandatory">
         <IntroSection />
+        <HelloSection />
         <MarqueeImages images={hackathonImages} direction="left" />
         
         <section id="about" className="h-screen snap-start bg-[#FF4500] text-white flex items-center justify-center">
