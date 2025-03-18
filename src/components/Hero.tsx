@@ -1,3 +1,4 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 
@@ -25,8 +26,8 @@ const Hero = () => {
         transition={{ duration: 0.6 }}
         className="flex justify-between p-8 relative z-10"
       >
-        <div className="text-2xl font-medium text-white">Raw Materials</div>
-        <div className="text-2xl font-medium text-white">An Unusual Design Company</div>
+        <div className="text-2xl font-medium text-white">Virtual Event</div>
+        <div className="text-2xl font-medium text-white">Date: TBD</div>
       </motion.div>
       
       <motion.div 
@@ -42,7 +43,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-[200px] font-bold leading-none text-white"
           >
-            RM
+            $1M+
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -50,7 +51,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="text-xl mt-8 max-w-xl text-white"
           >
-            We design and launch unusually creative digital products that change brands' fortunes.
+            The World's Largest Hackathon with over $1 million in prizes.
           </motion.p>
         </div>
       </motion.div>
@@ -68,14 +69,14 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 1.2 }}
             className="text-4xl font-medium mb-8"
           >
-            A CULTURE BUILT FOR CONSTANT ADAPTATION.
+            CREATE. INNOVATE. TRANSFORM.
           </motion.h2>
           <div className="grid grid-cols-4 gap-8">
             {[
-              { id: "01", text: "Creator Led" },
-              { id: "02", text: "Phase Zero" },
-              { id: "03", text: "Anti Transactional" },
-              { id: "04", text: "One Team" }
+              { id: "01", text: "Multiple Prize Categories" },
+              { id: "02", text: "Global Participation" },
+              { id: "03", text: "Industry Mentors" },
+              { id: "04", text: "Career Opportunities" }
             ].map((item, index) => (
               <motion.div
                 key={item.id}

@@ -1,6 +1,8 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
 import Sections from "@/components/Sections";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -15,6 +17,7 @@ const Index = () => {
       className="min-h-screen bg-[#FEF7F5]"
     >
       <Navbar />
+      {isMobile ? null : <Hero />}
       <div className={`${!isMobile ? "pl-[200px]" : "pt-[100px]"}`}>
         <Sections />
       </div>
