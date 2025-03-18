@@ -9,8 +9,8 @@ const navItems = [
   { id: "03", label: "Work", path: "work" },
   { id: "04", label: "Talent", path: "talent" },
   { id: "05", label: "Careers", path: "careers" },
-  { id: "06", label: "Contact", path: "contact" },
-  { id: "07", label: "Unusual Index", path: "unusual-index" },
+  { id: "06", label: "Register Now", path: "contact" },
+  { id: "07", label: "FAQ", path: "unusual-index" },
 ];
 
 const getNavItemStyle = (id: string) => {
