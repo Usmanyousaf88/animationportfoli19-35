@@ -109,7 +109,7 @@ const HelloSection = () => {
           {[...Array(5)].map((_, i) => (
             <div 
               key={i}
-              className={`absolute h-60 w-1 bg-blue-400 opacity-0 right-${30 + i * 10} top-${20 + i * 15} lightning-flash-${i}`}
+              className={`absolute h-60 w-1 bg-blue-400 opacity-0 lightning-flash-${i}`}
               style={{
                 right: `${30 + i * 10}%`,
                 top: `${20 + i * 15}%`,
@@ -170,8 +170,9 @@ const HelloSection = () => {
         </filter>
       </svg>
       
-      {/* CSS for the animated bolts */}
-      <style jsx>{`
+      {/* CSS for the animated bolts - fixing the TypeScript error by removing jsx property */}
+      <style>
+        {`
         @keyframes flash {
           0%, 100% { opacity: 0; }
           50% { opacity: 0.8; }
@@ -182,7 +183,8 @@ const HelloSection = () => {
         .lightning-flash-2 { animation: flash 6s 3s infinite; }
         .lightning-flash-3 { animation: flash 9s 0.5s infinite; }
         .lightning-flash-4 { animation: flash 7.5s 1.5s infinite; }
-      `}</style>
+        `}
+      </style>
     </section>
   );
 };
