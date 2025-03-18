@@ -4,50 +4,141 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 
 const HelloSection = () => {
-  const modelRef = useRef<HTMLDivElement>(null);
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  const boltRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
-    // Add animation for the 3D model
-    if (modelRef.current) {
-      gsap.to(modelRef.current, {
-        rotationY: 360,
-        duration: 60,
+    // Lightning animation
+    if (boltRef.current && containerRef.current) {
+      // Create a timeline for the lightning effect
+      const timeline = gsap.timeline({
         repeat: -1,
-        ease: "none"
+        repeatDelay: 3
       });
+      
+      // Main bolt animation
+      timeline.to(boltRef.current, {
+        opacity: 1,
+        duration: 0.05,
+        ease: "power4.out"
+      });
+      
+      timeline.to(boltRef.current, {
+        opacity: 0.7,
+        duration: 0.05,
+        delay: 0.1
+      });
+      
+      timeline.to(boltRef.current, {
+        opacity: 1,
+        duration: 0.05,
+        delay: 0.05
+      });
+      
+      timeline.to(boltRef.current, {
+        opacity: 0,
+        duration: 0.3,
+        delay: 0.2
+      });
+      
+      // Create random lightning flashes in the background
+      const createRandomFlash = () => {
+        if (!containerRef.current) return;
+        
+        const flash = document.createElement('div');
+        flash.className = 'absolute inset-0 bg-blue-500 opacity-0 z-0';
+        containerRef.current.appendChild(flash);
+        
+        gsap.to(flash, {
+          opacity: Math.random() * 0.2,
+          duration: 0.05,
+          onComplete: () => {
+            gsap.to(flash, {
+              opacity: 0,
+              duration: 0.1,
+              delay: 0.05,
+              onComplete: () => {
+                if (flash.parentNode) {
+                  flash.parentNode.removeChild(flash);
+                }
+              }
+            });
+          }
+        });
+      };
+      
+      // Trigger random flashes
+      const flashInterval = setInterval(() => {
+        if (Math.random() > 0.7) {
+          createRandomFlash();
+        }
+      }, 1000);
+      
+      return () => {
+        clearInterval(flashInterval);
+        timeline.kill();
+      };
     }
   }, []);
-
+  
   return (
-    <section id="hello" className="h-screen snap-start bg-[#FF4500] text-white relative overflow-hidden">
-      {/* 3D Model container */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        <div ref={modelRef} className="sketchfab-embed-wrapper h-full"> 
-          <iframe 
-            title="Virtual Event Space" 
-            className="w-full h-full"
-            frameBorder="0" 
-            allowFullScreen
-            allow="autoplay; fullscreen; xr-spatial-tracking"
-            src="https://sketchfab.com/models/e762ef1a73b344a2848b544a6c9929a8/embed?autospin=1&autostart=1&preload=1&transparent=1&ui_theme=dark"
+    <section 
+      id="hello" 
+      ref={containerRef}
+      className="h-screen snap-start bg-black text-white relative overflow-hidden"
+    >
+      {/* Lightning bolt container */}
+      <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center overflow-hidden">
+        {/* Blue glow background */}
+        <div className="absolute right-0 h-full w-1/4 bg-blue-500 blur-[100px] opacity-20"></div>
+        
+        {/* Main lightning bolt */}
+        <div 
+          ref={boltRef} 
+          className="absolute right-0 h-full opacity-0"
+        >
+          <img 
+            src="/lovable-uploads/fecd35b1-2ed1-4562-94e5-1acef7aca4a4.png" 
+            alt="Lightning bolt" 
+            className="h-full object-cover"
           />
+        </div>
+        
+        {/* Small random bolts */}
+        <div className="absolute inset-0">
+          {[...Array(5)].map((_, i) => (
+            <div 
+              key={i}
+              className={`absolute h-60 w-1 bg-blue-400 opacity-0 right-${30 + i * 10} top-${20 + i * 15} lightning-flash-${i}`}
+              style={{
+                right: `${30 + i * 10}%`,
+                top: `${20 + i * 15}%`,
+                transform: `rotate(${85 + i * 2}deg)`,
+                filter: 'blur(1px)'
+              }}
+            ></div>
+          ))}
         </div>
       </div>
 
       {/* Content overlay */}
-      <div className="relative z-10 flex flex-col justify-center items-center h-full bg-gradient-to-b from-black/30 to-black/70 p-8">
+      <div className="relative z-10 flex flex-col justify-center items-center h-full bg-gradient-to-r from-black via-black/80 to-transparent p-8">
         <motion.div 
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl text-center"
+          className="max-w-4xl mr-auto"
         >
-          <h2 className="text-5xl md:text-7xl font-bold mb-8">Virtual Event</h2>
-          <div className="text-xl md:text-2xl space-y-6 max-w-3xl mx-auto">
-            <p>Join us from anywhere in the world for the largest online hackathon ever organized. Our cutting-edge virtual platform enables seamless collaboration and networking with fellow innovators globally.</p>
-            <p>Experience immersive project showcases, real-time mentorship sessions, and interactive workshops - all from the comfort of your home.</p>
-            <div className="mt-12 p-6 bg-white/10 backdrop-blur-sm rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Event Details</h3>
+          <div className="mb-8 flex items-center">
+            <h2 className="text-6xl md:text-7xl font-bold tracking-tighter mr-2">bolt</h2>
+            <span className="text-4xl md:text-5xl font-bold text-gray-400">.new</span>
+          </div>
+          
+          <div className="text-xl md:text-2xl space-y-6 max-w-2xl">
+            <p className="text-left">Join us from anywhere in the world for the largest online hackathon ever organized. Our cutting-edge virtual platform enables seamless collaboration and networking with fellow innovators globally.</p>
+            <p className="text-left">Experience immersive project showcases, real-time mentorship sessions, and interactive workshops - all from the comfort of your home.</p>
+            <div className="mt-12 p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-blue-500/20">
+              <h3 className="text-2xl font-bold mb-4 text-left">Event Details</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                 <div>
                   <p className="text-lg opacity-75">Location</p>
@@ -70,6 +161,28 @@ const HelloSection = () => {
           </div>
         </motion.div>
       </div>
+      
+      {/* Add SVG filter for lightning glow effect */}
+      <svg className="hidden">
+        <filter id="lightning-glow">
+          <feGaussianBlur stdDeviation="8" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="arithmetic" k1="0" k2="1" k3="0" k4="0" />
+        </filter>
+      </svg>
+      
+      {/* CSS for the animated bolts */}
+      <style jsx>{`
+        @keyframes flash {
+          0%, 100% { opacity: 0; }
+          50% { opacity: 0.8; }
+        }
+        
+        .lightning-flash-0 { animation: flash 7s 1s infinite; }
+        .lightning-flash-1 { animation: flash 8s 2s infinite; }
+        .lightning-flash-2 { animation: flash 6s 3s infinite; }
+        .lightning-flash-3 { animation: flash 9s 0.5s infinite; }
+        .lightning-flash-4 { animation: flash 7.5s 1.5s infinite; }
+      `}</style>
     </section>
   );
 };
